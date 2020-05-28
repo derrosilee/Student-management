@@ -1,0 +1,51 @@
+{% extends 'students/base.html' %}
+
+{% block body %}
+
+<div class="jumbotron">
+    <h1 align='center'><i>STUDENTS HERE AT EDGE TECH</i></h1>
+</div>
+    <div class="container mt-3">
+        <h2>Filterable Table</h2>
+        <p>Type something in the input field to search the table for first names, last names or emails:</p>  
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    </div>
+    <br>
+
+    <div class="container">
+        <table class="table table-dark table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>department</th>
+                    <th>class</th>
+                </tr>
+            </thead>
+            <tbody  id="myTable">
+                {% for stud in student %}
+                    <tr>
+                        <td>{{ stud.id }}</td>
+                        <td>{{ stud.name }}</td>
+                        <td>{{ stud.department}}</td>
+                        <td>{{ stud.stud_class}}</td>
+                    </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
+
+{% endblock body %}
+
+
